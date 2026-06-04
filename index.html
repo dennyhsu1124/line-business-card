@@ -449,99 +449,104 @@
       return;
     }
 
+    // 圓形圖示按鈕（模擬網頁版設計）
+    function iconRow(icon, text, color, action) {
+      const row = {
+        type: 'box', layout: 'horizontal', spacing: 'md',
+        contents: [
+          {
+            type: 'box', layout: 'vertical', width: '34px', height: '34px',
+            backgroundColor: '#2a2a2a', cornerRadius: '17px',
+            justifyContent: 'center', alignItems: 'center',
+            contents: [{ type: 'text', text: icon, size: 'xs', align: 'center' }]
+          },
+          { type: 'text', text: text, color: color || '#cccccc', size: 'sm', gravity: 'center', flex: 1, wrap: true }
+        ]
+      };
+      if (action) row.action = action;
+      return row;
+    }
+
+    function darkBtn(label, uri, color) {
+      return {
+        type: 'box', layout: 'vertical', flex: 1,
+        backgroundColor: color || '#2a2a2a',
+        cornerRadius: '10px', paddingAll: '14px',
+        justifyContent: 'center', alignItems: 'center',
+        action: { type: 'uri', uri },
+        contents: [{ type: 'text', text: label, color: '#d4af37', align: 'center', size: 'sm', weight: 'bold' }]
+      };
+    }
+
     const flex = {
       type: 'flex',
       altText: '立騰室內裝修設計 ─ 徐睿靖 設計總監',
       contents: {
         type: 'bubble',
         size: 'mega',
-        header: {
-          type: 'box',
-          layout: 'vertical',
-          backgroundColor: '#1a1a1a',
-          paddingAll: '24px',
-          paddingBottom: '20px',
-          contents: [
-            { type: 'text', text: '立騰室內裝修設計', color: '#d4af37', size: 'xl', weight: 'bold', align: 'center' },
-            { type: 'text', text: 'LITENG INTERIOR DESIGN', color: '#555555', size: 'xxs', align: 'center', margin: 'sm' },
-            { type: 'separator', margin: 'lg', color: '#d4af3760' },
-            { type: 'text', text: '徐 睿 靖', color: '#ffffff', size: 'xxl', weight: 'bold', align: 'center', margin: 'lg' },
-            { type: 'text', text: '設計總監', color: '#d4af37', size: 'sm', align: 'center', margin: 'sm' }
-          ]
-        },
         body: {
-          type: 'box',
-          layout: 'vertical',
-          backgroundColor: '#222222',
-          paddingAll: '20px',
-          spacing: 'md',
+          type: 'box', layout: 'vertical', backgroundColor: '#1a1a1a',
+          paddingAll: '0px',
           contents: [
+            // ── Header ──
             {
-              type: 'box', layout: 'horizontal', spacing: 'md', alignItems: 'flex-start',
+              type: 'box', layout: 'vertical', backgroundColor: '#1a1a1a',
+              paddingAll: '24px', paddingBottom: '20px',
               contents: [
-                { type: 'text', text: '📞', size: 'sm', flex: 0 },
-                { type: 'text', text: '0938 135 638', color: '#cccccc', size: 'sm', flex: 1 }
+                { type: 'text', text: '立騰室內裝修設計', color: '#d4af37', size: 'xl', weight: 'bold', align: 'center' },
+                { type: 'text', text: 'LITENG INTERIOR DESIGN', color: '#555555', size: 'xxs', align: 'center', margin: 'xs' },
+                {
+                  type: 'box', layout: 'horizontal', margin: 'md', justifyContent: 'center',
+                  contents: [{ type: 'box', layout: 'vertical', width: '48px', height: '1px', backgroundColor: '#d4af37' }]
+                },
+                { type: 'text', text: '徐  睿  靖', color: '#ffffff', size: 'xxl', weight: 'bold', align: 'center', margin: 'md' },
+                { type: 'text', text: '設  計  總  監', color: '#d4af37', size: 'sm', align: 'center', margin: 'xs' }
               ]
             },
+            { type: 'separator', color: '#333333' },
+            // ── Contact ──
             {
-              type: 'box', layout: 'horizontal', spacing: 'md', alignItems: 'flex-start',
+              type: 'box', layout: 'vertical', backgroundColor: '#1e1e1e',
+              paddingAll: '20px', spacing: 'md',
               contents: [
-                { type: 'text', text: '🌐', size: 'sm', flex: 0 },
-                { type: 'text', text: 'liteng2014.com', color: '#cccccc', size: 'sm', flex: 1 }
+                iconRow('☎', '0938 135 638', '#cccccc', { type: 'uri', uri: 'tel:0938135638' }),
+                iconRow('🌐', 'liteng2014.com', '#cccccc', { type: 'uri', uri: 'https://liteng2014.com' }),
+                iconRow('📍', '桃園市桃園區大業路二段212號1樓', '#cccccc'),
+                iconRow('★', '5.0  ·  30 則 Google 評論', '#d4af37')
               ]
             },
+            { type: 'separator', color: '#333333' },
+            // ── Buttons ──
             {
-              type: 'box', layout: 'horizontal', spacing: 'md', alignItems: 'flex-start',
-              contents: [
-                { type: 'text', text: '📍', size: 'sm', flex: 0 },
-                { type: 'text', text: '桃園市桃園區大業路二段212號1樓', color: '#cccccc', size: 'sm', flex: 1, wrap: true }
-              ]
-            },
-            {
-              type: 'box', layout: 'horizontal', spacing: 'md', alignItems: 'flex-start',
-              contents: [
-                { type: 'text', text: '⭐', size: 'sm', flex: 0 },
-                { type: 'text', text: '5.0 ★  · 30 則 Google 評論', color: '#d4af37', size: 'sm', flex: 1 }
-              ]
-            }
-          ]
-        },
-        footer: {
-          type: 'box',
-          layout: 'vertical',
-          backgroundColor: '#1a1a1a',
-          paddingAll: '14px',
-          spacing: 'sm',
-          contents: [
-            {
-              type: 'box', layout: 'horizontal', spacing: 'sm',
+              type: 'box', layout: 'vertical', backgroundColor: '#1a1a1a',
+              paddingAll: '16px', spacing: 'sm',
               contents: [
                 {
-                  type: 'button', flex: 1, height: 'sm', style: 'primary',
-                  color: '#c8a000',
-                  action: { type: 'uri', label: '致電', uri: 'tel:0938135638' }
+                  type: 'box', layout: 'horizontal', spacing: 'sm',
+                  contents: [
+                    darkBtn('立即致電', 'tel:0938135638'),
+                    {
+                      type: 'box', layout: 'vertical', flex: 1,
+                      backgroundColor: '#00b900', cornerRadius: '10px', paddingAll: '14px',
+                      justifyContent: 'center', alignItems: 'center',
+                      action: { type: 'uri', uri: 'https://line.me/R/ti/p/@964dbjma' },
+                      contents: [{ type: 'text', text: '加入好友', color: '#ffffff', align: 'center', size: 'sm', weight: 'bold' }]
+                    }
+                  ]
                 },
                 {
-                  type: 'button', flex: 1, height: 'sm', style: 'primary',
-                  color: '#00b900',
-                  action: { type: 'uri', label: '加LINE好友', uri: 'https://line.me/R/ti/p/@964dbjma' }
-                }
-              ]
-            },
-            {
-              type: 'box', layout: 'horizontal', spacing: 'sm',
-              contents: [
-                {
-                  type: 'button', flex: 1, height: 'sm', style: 'secondary',
-                  action: { type: 'uri', label: '官網', uri: 'https://liteng2014.com' }
+                  type: 'box', layout: 'horizontal', spacing: 'sm',
+                  contents: [
+                    darkBtn('官方網站', 'https://liteng2014.com'),
+                    darkBtn('查看地圖', 'https://maps.google.com/?q=桃園市桃園區大業路二段212號1樓')
+                  ]
                 },
                 {
-                  type: 'button', flex: 1, height: 'sm', style: 'secondary',
-                  action: { type: 'uri', label: '地圖', uri: 'https://maps.google.com/?q=桃園市桃園區大業路二段212號1樓' }
-                },
-                {
-                  type: 'button', flex: 1, height: 'sm', style: 'secondary',
-                  action: { type: 'uri', label: 'Facebook', uri: 'https://www.facebook.com/LiTengtw' }
+                  type: 'box', layout: 'vertical',
+                  backgroundColor: '#1a2a4a', cornerRadius: '10px', paddingAll: '14px',
+                  justifyContent: 'center', alignItems: 'center',
+                  action: { type: 'uri', uri: 'https://www.facebook.com/LiTengtw' },
+                  contents: [{ type: 'text', text: 'Facebook 粉絲專頁', color: '#5b9bf8', align: 'center', size: 'sm', weight: 'bold' }]
                 }
               ]
             }
