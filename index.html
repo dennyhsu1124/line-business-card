@@ -392,7 +392,14 @@
   let liffReady     = false;
 
   liff.init({ liffId: LIFF_ID })
-    .then(() => { liffReady = true; })
+    .then(() => {
+      // 在外部瀏覽器時自動觸發 LINE Login 完成授權
+      if (!liff.isInClient() && !liff.isLoggedIn()) {
+        liff.login({ redirectUri: location.href });
+        return;
+      }
+      liffReady = true;
+    })
     .catch(err => console.warn('LIFF init:', err));
 
   /* ── Toast helper ── */
