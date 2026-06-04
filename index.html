@@ -392,17 +392,7 @@
   let liffReady     = false;
 
   liff.init({ liffId: LIFF_ID })
-    .then(() => {
-      const authorized = localStorage.getItem('liff_scope_ver');
-      if (authorized !== SCOPE_VER) {
-        // 強制登出再登入，觸發重新授權畫面
-        if (liff.isLoggedIn()) liff.logout();
-        localStorage.setItem('liff_scope_ver', SCOPE_VER);
-        liff.login({ redirectUri: location.href });
-        return;
-      }
-      liffReady = true;
-    })
+    .then(() => { liffReady = true; })
     .catch(err => console.warn('LIFF init:', err));
 
   /* ── Toast helper ── */
@@ -542,7 +532,12 @@
       if (result) toast('名片已成功分享 ✓');
     } catch (err) {
       console.error('share error:', err);
-      if (err && err.code !== 'CANCEL') {
+      if (!err || err.code === 'CANCEL') return;
+      // 若權限不足，觸發重新授權
+      if (err.message && err.message.includes('not allowed')) {
+        toast('需要重新授權，請稍候…');
+        setTimeout(() => liff.login({ redirectUri: location.href }), 1500);
+      } else {
         toast('分享失敗：' + (err.message || err.code || '未知錯誤'));
       }
     }
