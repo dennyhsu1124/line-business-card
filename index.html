@@ -393,8 +393,9 @@
 
   liff.init({ liffId: LIFF_ID })
     .then(() => {
-      // 在外部瀏覽器時自動觸發 LINE Login 完成授權
-      if (!liff.isInClient() && !liff.isLoggedIn()) {
+      if (!liff.isInClient()) {
+        // 外部瀏覽器：強制重新授權以取得 chat_message.write 權限
+        if (liff.isLoggedIn()) liff.logout();
         liff.login({ redirectUri: location.href });
         return;
       }
