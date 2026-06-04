@@ -417,6 +417,11 @@
   async function shareCard() {
     if (!liffReady) { toast('初始化中，請稍後再試'); return; }
 
+    if (!liff.isInClient()) {
+      toast('請在 LINE 內開啟此功能');
+      return;
+    }
+
     const flex = {
       type: 'flex',
       altText: '立騰室內裝修設計 ─ 徐睿靖 設計總監',
