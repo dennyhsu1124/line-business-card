@@ -439,54 +439,57 @@
       altText: '立騰室內裝修設計 ─ 徐睿靖 設計總監',
       contents: {
         type: 'bubble',
+        size: 'mega',
+        header: {
+          type: 'box',
+          layout: 'vertical',
+          backgroundColor: '#1a1a1a',
+          paddingAll: '24px',
+          paddingBottom: '20px',
+          contents: [
+            { type: 'text', text: '立騰室內裝修設計', color: '#d4af37', size: 'xl', weight: 'bold', align: 'center', letterSpacing: '4px' },
+            { type: 'text', text: 'LITENG INTERIOR DESIGN', color: '#555555', size: 'xxs', align: 'center', margin: 'sm', letterSpacing: '3px' },
+            {
+              type: 'box', layout: 'horizontal', margin: 'lg', justifyContent: 'center',
+              contents: [{ type: 'box', layout: 'vertical', width: '50px', height: '1px', backgroundColor: '#d4af37' }]
+            },
+            { type: 'text', text: '徐 睿 靖', color: '#ffffff', size: 'xxl', weight: 'bold', align: 'center', margin: 'lg' },
+            { type: 'text', text: '設計總監', color: '#d4af37', size: 'sm', align: 'center', margin: 'sm', letterSpacing: '3px' }
+          ]
+        },
         body: {
           type: 'box',
           layout: 'vertical',
-          backgroundColor: '#1e1e1e',
-          paddingAll: '22px',
+          backgroundColor: '#222222',
+          paddingAll: '20px',
+          spacing: 'md',
           contents: [
-            { type: 'text', text: '立騰室內裝修設計', color: '#d4af37', size: 'lg', weight: 'bold', align: 'center' },
-            { type: 'text', text: 'LITENG INTERIOR DESIGN', color: '#666666', size: 'xxs', align: 'center', margin: 'xs' },
-            { type: 'separator', margin: 'lg', color: '#d4af3740' },
             {
-              type: 'box', layout: 'vertical', margin: 'lg',
+              type: 'box', layout: 'horizontal', spacing: 'md', alignItems: 'center',
               contents: [
-                { type: 'text', text: '徐睿靖', color: '#ffffff', size: 'xxl', weight: 'bold', align: 'center' },
-                { type: 'text', text: '設計總監', color: '#d4af37', size: 'sm', align: 'center', margin: 'sm' }
+                { type: 'text', text: '📞', size: 'sm', flex: 0 },
+                { type: 'text', text: '0938 135 638', color: '#cccccc', size: 'sm', flex: 1 }
               ]
             },
-            { type: 'separator', margin: 'lg', color: '#d4af3740' },
             {
-              type: 'box', layout: 'vertical', margin: 'lg', spacing: 'md',
+              type: 'box', layout: 'horizontal', spacing: 'md', alignItems: 'center',
               contents: [
-                {
-                  type: 'box', layout: 'horizontal', spacing: 'md',
-                  contents: [
-                    { type: 'text', text: '📞', size: 'sm', flex: 0 },
-                    { type: 'text', text: '0938 135 638', color: '#cccccc', size: 'sm' }
-                  ]
-                },
-                {
-                  type: 'box', layout: 'horizontal', spacing: 'md',
-                  contents: [
-                    { type: 'text', text: '🌐', size: 'sm', flex: 0 },
-                    { type: 'text', text: 'liteng2014.com', color: '#cccccc', size: 'sm' }
-                  ]
-                },
-                {
-                  type: 'box', layout: 'horizontal', spacing: 'md',
-                  contents: [
-                    { type: 'text', text: '📍', size: 'sm', flex: 0 },
-                    { type: 'text', text: '桃園市桃園區大業路二段212號1樓', color: '#cccccc', size: 'sm', wrap: true }
-                  ]
-                },
-                {
-                  type: 'box', layout: 'horizontal', spacing: 'md',
-                  contents: [
-                    { type: 'text', text: '⭐', size: 'sm', flex: 0 },
-                    { type: 'text', text: '5.0 ★  ·  30 則 Google 評論', color: '#d4af37', size: 'sm' }
-                  ]
-                }
+                { type: 'text', text: '🌐', size: 'sm', flex: 0 },
+                { type: 'text', text: 'liteng2014.com', color: '#cccccc', size: 'sm', flex: 1 }
+              ]
+            },
+            {
+              type: 'box', layout: 'horizontal', spacing: 'md', alignItems: 'center',
+              contents: [
+                { type: 'text', text: '📍', size: 'sm', flex: 0 },
+                { type: 'text', text: '桃園市桃園區大業路二段212號1樓', color: '#cccccc', size: 'sm', flex: 1, wrap: true }
+              ]
+            },
+            {
+              type: 'box', layout: 'horizontal', spacing: 'md', alignItems: 'center',
+              contents: [
+                { type: 'text', text: '⭐', size: 'sm', flex: 0 },
+                { type: 'text', text: '5.0 ★  · 30 則 Google 評論', color: '#d4af37', size: 'sm', flex: 1 }
               ]
             }
           ]
@@ -495,14 +498,40 @@
           type: 'box',
           layout: 'vertical',
           backgroundColor: '#1a1a1a',
-          paddingAll: '12px',
+          paddingAll: '14px',
+          spacing: 'sm',
           contents: [
             {
-              type: 'button',
-              action: { type: 'uri', label: '查看完整電子名片', uri: CARD_URL },
-              color: '#d4af37',
-              style: 'primary',
-              height: 'sm'
+              type: 'box', layout: 'horizontal', spacing: 'sm',
+              contents: [
+                {
+                  type: 'button', flex: 1, height: 'sm', style: 'primary',
+                  color: '#c8a000',
+                  action: { type: 'uri', label: '📞 致電', uri: 'tel:0938135638' }
+                },
+                {
+                  type: 'button', flex: 1, height: 'sm', style: 'primary',
+                  color: '#00b900',
+                  action: { type: 'uri', label: '💬 LINE', uri: 'https://line.me/R/ti/p/@964dbjma' }
+                }
+              ]
+            },
+            {
+              type: 'box', layout: 'horizontal', spacing: 'sm',
+              contents: [
+                {
+                  type: 'button', flex: 1, height: 'sm', style: 'secondary',
+                  action: { type: 'uri', label: '🌐 官網', uri: 'https://liteng2014.com' }
+                },
+                {
+                  type: 'button', flex: 1, height: 'sm', style: 'secondary',
+                  action: { type: 'uri', label: '📍 地圖', uri: 'https://maps.google.com/?q=桃園市桃園區大業路二段212號1樓' }
+                },
+                {
+                  type: 'button', flex: 1, height: 'sm', style: 'secondary',
+                  action: { type: 'uri', label: 'FB', uri: 'https://www.facebook.com/LiTengtw' }
+                }
+              ]
             }
           ]
         }
