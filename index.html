@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>立騰室內裝修設計 | 徐睿靖</title>
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+      background: #111;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .card-wrap {
+      width: 100%;
+      max-width: 380px;
+      animation: fadeUp .6s ease-out both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Card shell ─────────────────────────────── */
+    .card {
+      background: linear-gradient(160deg, #232323 0%, #1a1a1a 100%);
+      border: 1px solid rgba(212,175,55,.2);
+      border-radius: 18px;
+      padding: 32px 26px 28px;
+      box-shadow:
+        0 24px 64px rgba(0,0,0,.55),
+        inset 0 1px 0 rgba(212,175,55,.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* top shimmer line */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #d4af37, transparent);
+      border-radius: 2px;
+    }
+
+    /* corner ornament */
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; right: -40px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,175,55,.06) 0%, transparent 70%);
+    }
+
+    /* ── Brand ──────────────────────────────────── */
+    .brand { text-align: center; margin-bottom: 20px; }
+
+    .brand-zh {
+      font-size: 21px;
+      font-weight: 700;
+      color: #d4af37;
+      letter-spacing: 5px;
+      line-height: 1.3;
+    }
+
+    .brand-en {
+      font-size: 10px;
+      color: #666;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ── Dividers ───────────────────────────────── */
+    .divider-center {
+      width: 56px; height: 1px;
+      background: linear-gradient(90deg, transparent, #d4af37, transparent);
+      margin: 16px auto;
+    }
+
+    .divider-full {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212,175,55,.3), transparent);
+      margin: 18px 0;
+    }
+
+    /* ── Person ─────────────────────────────────── */
+    .person { text-align: center; margin-bottom: 4px; }
+
+    .person-name {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 7px;
+    }
+
+    .person-title {
+      font-size: 12px;
+      color: #d4af37;
+      letter-spacing: 4px;
+      margin-top: 6px;
+    }
+
+    /* ── Contact list ───────────────────────────── */
+    .contacts { margin-bottom: 22px; }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 11px;
+    }
+
+    .c-icon {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: rgba(212,175,55,.08);
+      border: 1px solid rgba(212,175,55,.25);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .c-icon svg { width: 16px; height: 16px; fill: #d4af37; }
+
+    .c-text { flex: 1; font-size: 13.5px; color: #ccc; }
+    .c-text a { color: #ccc; text-decoration: none; }
+
+    .rating {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(212,175,55,.1);
+      border: 1px solid rgba(212,175,55,.28);
+      border-radius: 20px;
+      padding: 3px 11px;
+      font-size: 12px;
+      color: #d4af37;
+    }
+
+    /* ── Action grid ────────────────────────────── */
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-bottom: 11px;
+    }
+
+    .act-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 14px 8px;
+      border-radius: 11px;
+      border: 1px solid rgba(212,175,55,.28);
+      background: rgba(212,175,55,.05);
+      cursor: pointer;
+      text-decoration: none;
+      color: #d4af37;
+      font-size: 12px;
+      font-family: inherit;
+      transition: background .18s, transform .12s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .act-btn:active { background: rgba(212,175,55,.15); transform: scale(.97); }
+    .act-btn svg { width: 22px; height: 22px; fill: #d4af37; }
+
+    /* LINE button green tint */
+    .act-btn.line-oa {
+      border-color: rgba(0,195,60,.3);
+      background: rgba(0,195,60,.06);
+      color: #00c33c;
+    }
+    .act-btn.line-oa svg { fill: #00c33c; }
+    .act-btn.line-oa:active { background: rgba(0,195,60,.16); }
+
+    /* Facebook button blue tint */
+    .act-btn.facebook {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      gap: 10px;
+      padding: 14px 16px;
+      border-color: rgba(24,119,242,.35);
+      background: rgba(24,119,242,.07);
+      color: #5b9bf8;
+    }
+    .act-btn.facebook svg { fill: #5b9bf8; width: 20px; height: 20px; }
+    .act-btn.facebook:active { background: rgba(24,119,242,.18); }
+
+    /* ── Share & Save buttons ───────────────────── */
+    .btn-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .share-btn, .save-btn {
+      padding: 15px 8px;
+      border-radius: 11px;
+      border: none;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: inherit;
+      letter-spacing: 1px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: filter .18s, transform .12s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .share-btn {
+      background: linear-gradient(135deg, #b89000, #d4af37);
+      color: #1a1a1a;
+    }
+    .share-btn svg { fill: #1a1a1a; }
+
+    .save-btn {
+      background: rgba(212,175,55,.1);
+      border: 1px solid rgba(212,175,55,.3);
+      color: #d4af37;
+    }
+    .save-btn svg { fill: #d4af37; }
+
+    .share-btn:active, .save-btn:active {
+      filter: brightness(.93);
+      transform: scale(.97);
+    }
+
+    .share-btn svg, .save-btn svg { width: 18px; height: 18px; }
+
+    /* ── Footer ─────────────────────────────────── */
+    .footer {
+      text-align: center;
+      margin-top: 14px;
+      color: #444;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    /* ── Toast ──────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(14px);
+      background: #2a2a2a;
+      color: #d4af37;
+      padding: 10px 22px;
+      border-radius: 22px;
+      font-size: 13px;
+      border: 1px solid rgba(212,175,55,.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s, transform .25s;
+      z-index: 999;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<div class="card-wrap">
+  <div class="card">
+
+    <!-- Brand -->
+    <div class="brand">
+      <div class="brand-zh">立騰室內裝修設計</div>
+      <div class="brand-en">Liteng Interior Design</div>
+    </div>
+
+    <div class="divider-center"></div>
+
+    <!-- Person -->
+    <div class="person">
+      <div class="person-name">徐睿靖</div>
+      <div class="person-title">設計總監</div>
+    </div>
+
+    <div class="divider-full"></div>
+
+    <!-- Contacts -->
+    <div class="contacts">
+      <div class="contact-row">
+        <div class="c-icon">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        </div>
+        <div class="c-text"><a href="tel:0938135638">0938 135 638</a></div>
+      </div>
+
+      <div class="contact-row">
+        <div class="c-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        </div>
+        <div class="c-text"><a href="https://liteng2014.com" target="_blank">liteng2014.com</a></div>
+      </div>
+
+      <div class="contact-row">
+        <div class="c-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+        <div class="c-text">桃園市桃園區大業路二段212號1樓</div>
+      </div>
+
+      <div class="contact-row">
+        <div class="c-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        </div>
+        <div class="c-text"><span class="rating">★ 5.0 &nbsp;·&nbsp; 30 則評論</span></div>
+      </div>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="action-grid">
+      <a href="tel:0938135638" class="act-btn">
+        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        立即致電
+      </a>
+
+      <a id="line-btn" href="#" class="act-btn line-oa" onclick="openLineOA(event)">
+        <svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+        加入好友
+      </a>
+
+      <a href="https://liteng2014.com" target="_blank" class="act-btn">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        官方網站
+      </a>
+
+      <a href="https://maps.google.com/?q=桃園市桃園區大業路二段212號1樓" target="_blank" class="act-btn">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        查看地圖
+      </a>
+
+      <a href="https://www.facebook.com/LiTengtw" target="_blank" class="act-btn facebook">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+        Facebook 粉絲專頁
+      </a>
+    </div>
+
+    <div class="divider-full"></div>
+
+    <!-- Share & Save -->
+    <div class="btn-row">
+      <button class="share-btn" onclick="shareCard()">
+        <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+        分享名片
+      </button>
+
+      <button class="save-btn" onclick="saveContact()">
+        <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+        儲存聯絡人
+      </button>
+    </div>
+
+  </div>
+  <div class="footer">立騰室內裝修設計 &nbsp;·&nbsp; Powered by LINE LIFF</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── 設定區（部署後替換這兩個值）────────────────────
+  const LIFF_ID   = 'YOUR_LIFF_ID';    // 從 LINE Developers 取得
+  const LINE_OA   = '@YOUR_LINE_ID';   // 你的 LINE 官方帳號 @ID
+  // ──────────────────────────────────────────────────
+
+  const CARD_URL = location.href;
+  let liffReady  = false;
+
+  liff.init({ liffId: LIFF_ID })
+    .then(() => { liffReady = true; })
+    .catch(err => console.warn('LIFF init:', err));
+
+  /* ── Toast helper ── */
+  function toast(msg, duration = 2600) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), duration);
+  }
+
+  /* ── LINE OA button ── */
+  function openLineOA(e) {
+    e.preventDefault();
+    if (LINE_OA === '@YOUR_LINE_ID') {
+      toast('LINE 官方帳號尚未設定');
+      return;
+    }
+    const id = LINE_OA.replace('@', '');
+    location.href = `https://line.me/R/ti/p/${encodeURIComponent('@' + id)}`;
+  }
+
+  /* ── Share via LIFF shareTargetPicker ── */
+  async function shareCard() {
+    if (!liffReady) { toast('初始化中，請稍後再試'); return; }
+
+    const flex = {
+      type: 'flex',
+      altText: '立騰室內裝修設計 ─ 徐睿靖 設計總監',
+      contents: {
+        type: 'bubble',
+        body: {
+          type: 'box',
+          layout: 'vertical',
+          backgroundColor: '#1e1e1e',
+          paddingAll: '22px',
+          contents: [
+            { type: 'text', text: '立騰室內裝修設計', color: '#d4af37', size: 'lg', weight: 'bold', align: 'center' },
+            { type: 'text', text: 'LITENG INTERIOR DESIGN', color: '#666666', size: 'xxs', align: 'center', margin: 'xs' },
+            { type: 'separator', margin: 'lg', color: '#d4af3740' },
+            {
+              type: 'box', layout: 'vertical', margin: 'lg',
+              contents: [
+                { type: 'text', text: '徐睿靖', color: '#ffffff', size: 'xxl', weight: 'bold', align: 'center' },
+                { type: 'text', text: '設計總監', color: '#d4af37', size: 'sm', align: 'center', margin: 'sm' }
+              ]
+            },
+            { type: 'separator', margin: 'lg', color: '#d4af3740' },
+            {
+              type: 'box', layout: 'vertical', margin: 'lg', spacing: 'md',
+              contents: [
+                {
+                  type: 'box', layout: 'horizontal', spacing: 'md',
+                  contents: [
+                    { type: 'text', text: '📞', size: 'sm', flex: 0 },
+                    { type: 'text', text: '0938 135 638', color: '#cccccc', size: 'sm' }
+                  ]
+                },
+                {
+                  type: 'box', layout: 'horizontal', spacing: 'md',
+                  contents: [
+                    { type: 'text', text: '🌐', size: 'sm', flex: 0 },
+                    { type: 'text', text: 'liteng2014.com', color: '#cccccc', size: 'sm' }
+                  ]
+                },
+                {
+                  type: 'box', layout: 'horizontal', spacing: 'md',
+                  contents: [
+                    { type: 'text', text: '📍', size: 'sm', flex: 0 },
+                    { type: 'text', text: '桃園市桃園區大業路二段212號1樓', color: '#cccccc', size: 'sm', wrap: true }
+                  ]
+                },
+                {
+                  type: 'box', layout: 'horizontal', spacing: 'md',
+                  contents: [
+                    { type: 'text', text: '⭐', size: 'sm', flex: 0 },
+                    { type: 'text', text: '5.0 ★  ·  30 則 Google 評論', color: '#d4af37', size: 'sm' }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        footer: {
+          type: 'box',
+          layout: 'vertical',
+          backgroundColor: '#1a1a1a',
+          paddingAll: '12px',
+          contents: [
+            {
+              type: 'button',
+              action: { type: 'uri', label: '查看完整電子名片', uri: CARD_URL },
+              color: '#d4af37',
+              style: 'primary',
+              height: 'sm'
+            }
+          ]
+        }
+      }
+    };
+
+    try {
+      const result = await liff.shareTargetPicker([flex], { isMultiple: true });
+      if (result) toast('名片已成功分享 ✓');
+    } catch (err) {
+      console.error('share error:', err);
+      if (err.code !== 'CANCEL') toast('分享失敗，請重試');
+    }
+  }
+
+  /* ── Save contact as vCard ── */
+  function saveContact() {
+    const vcard = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'FN:徐睿靖',
+      'N:徐;睿靖;;;',
+      'ORG:立騰室內裝修設計',
+      'TITLE:設計總監',
+      'TEL;TYPE=CELL:0938135638',
+      'URL:https://liteng2014.com',
+      'ADR;TYPE=WORK:;;桃園市桃園區大業路二段212號1樓;;;;台灣',
+      'END:VCARD'
+    ].join('\r\n');
+
+    const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = '徐睿靖_立騰室內裝修設計.vcf';
+    a.click();
+    URL.revokeObjectURL(url);
+    toast('聯絡人已下載，請開啟 .vcf 檔案匯入');
+  }
+</script>
+</body>
+</html>
