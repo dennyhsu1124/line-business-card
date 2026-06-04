@@ -393,14 +393,13 @@
 
   liff.init({ liffId: LIFF_ID })
     .then(() => {
-      // 如果授權版本不符，強制重新登入以取得新 scope
-      if (liff.isInClient() || liff.isLoggedIn()) {
-        const authorized = localStorage.getItem('liff_scope_ver');
-        if (authorized !== SCOPE_VER) {
-          localStorage.setItem('liff_scope_ver', SCOPE_VER);
-          liff.login({ redirectUri: location.href });
-          return;
-        }
+      const authorized = localStorage.getItem('liff_scope_ver');
+      if (authorized !== SCOPE_VER) {
+        // 強制登出再登入，觸發重新授權畫面
+        if (liff.isLoggedIn()) liff.logout();
+        localStorage.setItem('liff_scope_ver', SCOPE_VER);
+        liff.login({ redirectUri: location.href });
+        return;
       }
       liffReady = true;
     })
