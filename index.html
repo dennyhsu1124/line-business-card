@@ -527,23 +527,30 @@
       }
     };
 
-    // 優先嘗試 shareTargetPicker（傳送 Flex Message 卡片）
-    let shared = false;
+    // 方法 1：shareTargetPicker（可選擇好友）
     try {
       const result = await liff.shareTargetPicker([flex], { isMultiple: true });
-      if (result) { toast('名片已成功分享 ✓'); shared = true; }
-    } catch (err) {
-      if (err && err.code === 'CANCEL') return;
-      console.warn('shareTargetPicker failed, fallback:', err);
+      if (result) { toast('名片已成功分享 ✓'); return; }
+    } catch (e1) {
+      if (e1 && e1.code === 'CANCEL') return;
+      console.warn('shareTargetPicker:', e1);
     }
 
-    // Fallback：用 LINE 原生分享（傳送文字訊息 + 連結）
-    if (!shared) {
-      const text = `【立騰室內裝修設計】\n徐睿靖｜設計總監\n\n📞 0938 135 638\n🌐 liteng2014.com\n📍 桃園市桃園區大業路二段212號1樓\n⭐ Google 5.0 ★（30則）\n🔵 fb.com/LiTengtw\n\n👉 電子名片：https://liff.line.me/2010297418-Bq1a4KE2`;
-      liff.openWindow({
-        url: `https://line.me/R/share?text=${encodeURIComponent(text)}`,
-        external: false
-      });
+    // 方法 2：sendMessages（直接傳入當前聊天室）
+    try {
+      await liff.sendMessages([flex]);
+      toast('名片已傳送到此聊天室 ✓');
+      return;
+    } catch (e2) {
+      console.warn('sendMessages:', e2);
+    }
+
+    // 方法 3：複製連結提示
+    try {
+      await navigator.clipboard.writeText('https://liff.line.me/2010297418-Bq1a4KE2');
+      toast('連結已複製，請貼到 LINE 聊天傳送');
+    } catch {
+      toast('請複製此連結傳給對方：liff.line.me/2010297418-Bq1a4KE2');
     }
   }
 
