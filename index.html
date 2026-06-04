@@ -527,19 +527,23 @@
       }
     };
 
+    // 優先嘗試 shareTargetPicker（傳送 Flex Message 卡片）
+    let shared = false;
     try {
       const result = await liff.shareTargetPicker([flex], { isMultiple: true });
-      if (result) toast('名片已成功分享 ✓');
+      if (result) { toast('名片已成功分享 ✓'); shared = true; }
     } catch (err) {
-      console.error('share error:', err);
-      if (!err || err.code === 'CANCEL') return;
-      // 若權限不足，觸發重新授權
-      if (err.message && err.message.includes('not allowed')) {
-        toast('需要重新授權，請稍候…');
-        setTimeout(() => liff.login({ redirectUri: location.href }), 1500);
-      } else {
-        toast('分享失敗：' + (err.message || err.code || '未知錯誤'));
-      }
+      if (err && err.code === 'CANCEL') return;
+      console.warn('shareTargetPicker failed, fallback:', err);
+    }
+
+    // Fallback：用 LINE 原生分享（傳送文字訊息 + 連結）
+    if (!shared) {
+      const text = `【立騰室內裝修設計】\n徐睿靖｜設計總監\n\n📞 0938 135 638\n🌐 liteng2014.com\n📍 桃園市桃園區大業路二段212號1樓\n⭐ Google 5.0 ★（30則）\n🔵 fb.com/LiTengtw\n\n👉 電子名片：https://liff.line.me/2010297418-Bq1a4KE2`;
+      liff.openWindow({
+        url: `https://line.me/R/share?text=${encodeURIComponent(text)}`,
+        external: false
+      });
     }
   }
 
