@@ -497,12 +497,19 @@
       }
     };
 
+    if (!liff.isApiAvailable('shareTargetPicker')) {
+      toast('此裝置不支援分享功能');
+      return;
+    }
+
     try {
       const result = await liff.shareTargetPicker([flex], { isMultiple: true });
       if (result) toast('名片已成功分享 ✓');
     } catch (err) {
       console.error('share error:', err);
-      if (err.code !== 'CANCEL') toast('分享失敗，請重試');
+      if (err && err.code !== 'CANCEL') {
+        toast('分享失敗：' + (err.message || err.code || '未知錯誤'));
+      }
     }
   }
 
