@@ -387,11 +387,23 @@
   const LINE_OA   = '@964dbjma';        // LINE 官方帳號 @ID
   // ──────────────────────────────────────────────────
 
-  const CARD_URL = location.href;
-  let liffReady  = false;
+  const CARD_URL    = location.href;
+  const SCOPE_VER   = 'v2'; // 更改此值可強制重新授權
+  let liffReady     = false;
 
   liff.init({ liffId: LIFF_ID })
-    .then(() => { liffReady = true; })
+    .then(() => {
+      // 如果授權版本不符，強制重新登入以取得新 scope
+      if (liff.isInClient() || liff.isLoggedIn()) {
+        const authorized = localStorage.getItem('liff_scope_ver');
+        if (authorized !== SCOPE_VER) {
+          localStorage.setItem('liff_scope_ver', SCOPE_VER);
+          liff.login({ redirectUri: location.href });
+          return;
+        }
+      }
+      liffReady = true;
+    })
     .catch(err => console.warn('LIFF init:', err));
 
   /* ── Toast helper ── */
