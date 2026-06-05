@@ -441,8 +441,20 @@
   // ──────────────────────────────────────────────────
 
   const CARD_URL    = location.href;
-  const SCOPE_VER   = 'v2'; // 更改此值可強制重新授權
+  const SCOPE_VER   = 'v2';
+  const GAS_URL     = 'https://script.google.com/macros/s/AKfycbz-9BVjA6_Eh2WPu8Cjtmd4mXV6bq3zNCsVjf6C81qKwYztTYZWbNDAXUMz0H__G5ep/exec';
   let liffReady     = false;
+  let reviewData    = { rating: 5.0, total: 30 };
+
+  // 抓 Google 評論數
+  fetch(GAS_URL)
+    .then(r => r.json())
+    .then(data => {
+      reviewData = data;
+      const el = document.querySelector('.rating');
+      if (el) el.textContent = '★ ' + data.rating + ' · ' + data.total + ' 則評論';
+    })
+    .catch(() => {});
 
   liff.init({ liffId: LIFF_ID })
     .then(() => {
@@ -563,7 +575,7 @@
             { type: 'box', layout: 'horizontal', spacing: 'md',
               contents: [
                 { type: 'text', text: '⭐', size: 'sm', flex: 0 },
-                { type: 'text', text: '5.0 ★ · 30 則 Google 評論', color: '#d4af37', size: 'sm', flex: 1 }
+                { type: 'text', text: reviewData.rating + ' ★ · ' + reviewData.total + ' 則 Google 評論', color: '#d4af37', size: 'sm', flex: 1 }
               ]
             }
           ]
