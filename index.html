@@ -487,12 +487,18 @@
 
   /* ── Share via LIFF shareTargetPicker ── */
   async function shareCard() {
-    if (!liffReady) { toast('初始化中，請稍後再試'); return; }
-
+    // 瀏覽器開啟：複製名片連結
     if (!liff.isInClient()) {
-      toast('請在 LINE 內開啟此功能');
+      try {
+        await navigator.clipboard.writeText('https://liff.line.me/2010297418-Bq1a4KE2');
+        toast('名片連結已複製！');
+      } catch {
+        toast('請複製此連結：liff.line.me/2010297418-Bq1a4KE2');
+      }
       return;
     }
+
+    if (!liffReady) { toast('初始化中，請稍後再試'); return; }
 
     const flex = {
       type: 'flex',
