@@ -509,11 +509,34 @@
         type: 'bubble',
         size: 'mega',
         hero: {
-          type: 'image',
-          url: 'https://dennyhsu1124.github.io/line-business-card/hero.jpg',
-          size: 'full',
-          aspectRatio: '20:13',
-          aspectMode: 'cover'
+          type: 'box',
+          layout: 'vertical',
+          paddingAll: '0px',
+          contents: [
+            {
+              type: 'image',
+              url: 'https://dennyhsu1124.github.io/line-business-card/hero.jpg',
+              size: 'full',
+              aspectRatio: '20:13',
+              aspectMode: 'cover'
+            },
+            {
+              type: 'box',
+              layout: 'vertical',
+              contents: [],
+              position: 'absolute',
+              bottom: '0px',
+              left: '0px',
+              right: '0px',
+              height: '70px',
+              background: {
+                type: 'linearGradient',
+                angle: '0deg',
+                startColor: '#1a1a1aFF',
+                endColor: '#1a1a1a00'
+              }
+            }
+          ]
         },
         body: {
           type: 'box', layout: 'vertical', backgroundColor: '#1a1a1a',
