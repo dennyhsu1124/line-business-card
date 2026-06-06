@@ -10,7 +10,7 @@
   <script>
     // Force reload if cached version is detected
     (function(){
-      var VER = 'v20260606a';
+      var VER = 'v20260606b';
       if (sessionStorage.getItem('liffVer') !== VER) {
         sessionStorage.setItem('liffVer', VER);
         var u = new URL(location.href);
@@ -447,7 +447,7 @@
   let reviewData    = { rating: 5.0, total: 31 };
 
   // 抓 Google 評論數
-  fetch(GAS_URL)
+  fetch(GAS_URL + '?t=' + Date.now())
     .then(r => r.json())
     .then(data => {
       reviewData = data;
