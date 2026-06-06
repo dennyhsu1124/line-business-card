@@ -10,7 +10,7 @@
   <script>
     // Force reload if cached version is detected
     (function(){
-      var VER = 'v20260605c';
+      var VER = 'v20260606a';
       if (sessionStorage.getItem('liffVer') !== VER) {
         sessionStorage.setItem('liffVer', VER);
         var u = new URL(location.href);
@@ -379,7 +379,7 @@
         <div class="c-icon">
           <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
         </div>
-        <div class="c-text"><span class="rating">★ 5.0 &nbsp;·&nbsp; 30 則評論</span></div>
+        <div class="c-text"><span class="rating">★ 5.0 &nbsp;·&nbsp; 31 則評論</span></div>
       </div>
     </div>
 
@@ -444,7 +444,7 @@
   const SCOPE_VER   = 'v2';
   const GAS_URL     = 'https://script.google.com/macros/s/AKfycbz-9BVjA6_Eh2WPu8Cjtmd4mXV6bq3zNCsVjf6C81qKwYztTYZWbNDAXUMz0H__G5ep/exec';
   let liffReady     = false;
-  let reviewData    = { rating: 5.0, total: 30 };
+  let reviewData    = { rating: 5.0, total: 31 };
 
   // 抓 Google 評論數
   fetch(GAS_URL)
